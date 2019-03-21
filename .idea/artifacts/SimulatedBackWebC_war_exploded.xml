@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="SimulatedBackWebC:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/SimulatedBackWebC_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="SimulatedBackWebC" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="module" name="ojdbc6.jar" module-name="SimulatedBackWebC" />
+          <element id="library" level="project" name="servlet-api" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="SimulatedBackWebC/web/Web" />
+    </root>
+  </artifact>
+</component>
