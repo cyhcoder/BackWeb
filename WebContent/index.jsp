@@ -46,7 +46,7 @@
 <div id="left_frame">
     <br/> <input type="button" name="" value="转账业务" onclick="changeFrame1('/transger.jsp');">
     <br/> <input type="button" name="" value="实时存款" onclick="changeFrame1('/add.jsp');">
-    <br/> <input type="button" name="" value="退卡" onclick="changeFrame1('/core.do?action=exit');">
+    <br/> <input type="button" name="" value="退卡" onclick="changeFrame('/core.do?action=exit');">
 </div>
 <div id="center_frame">
     <div id="input_amount">请选择所需服务</div>

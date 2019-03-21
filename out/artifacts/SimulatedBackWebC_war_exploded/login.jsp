@@ -28,9 +28,7 @@
         }
 
         window.onload = function () {
-            if (<%=err %>=='101'
-        )
-            {
+            if ('101' ==<%=err %>) {
                 x = document.getElementById("err");
                 x.style.display = "block";
             }

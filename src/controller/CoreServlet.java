@@ -28,7 +28,6 @@ public class CoreServlet extends HttpServlet {
      */
     public CoreServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -37,19 +36,21 @@ public class CoreServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html;charset=utf-8");
         String path = request.getContextPath();
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path
                 + "/";
-        PrintWriter out = response.getWriter();
-        String action = request.getParameter("action");
+        PrintWriter out = response.getWriter(); //向页面输出语句
+        String action = request.getParameter("action"); //判断进入哪个选项
+        AccountServiceImpl aServ = new AccountServiceImpl(); //调用业务Service
+        //初始化参数
+        String accountid,accountid2,url;
+        double amount;
         if ("login".equalsIgnoreCase(action)) {
             System.out.println("开始登录");
             String id = request.getParameter("accountid");
             String pwd = request.getParameter("pwd");
-            AccountServiceImpl aServ = new AccountServiceImpl();
             try {
                 Account acc = aServ.loginAccount(id, pwd);
                 HttpSession session = request.getSession();
@@ -57,88 +58,81 @@ public class CoreServlet extends HttpServlet {
 //				response.sendRedirect("/view/index.jsp");
                 if (acc == null) {
                     request.setAttribute("err", "101");
-                    RequestDispatcher disp = request.getRequestDispatcher("/login.jsp");
-                    disp.forward(request, response);
+                    url = "/login.jsp";
+                    dispForward(request, response,url);
+                }else{
+                    url = "/index.jsp";
+                    dispForward(request, response,url);
                 }
-                RequestDispatcher disp = request.getRequestDispatcher("/index.jsp");
-                disp.forward(request, response);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 out.println("服务器出现异常");
             }
         } else if ("addMoney".equalsIgnoreCase(action)) {
             System.out.println("进入存钱");
-            String accountid = request.getParameter("accountid");
-            double amount = Double.parseDouble(request.getParameter("amount"));
+            accountid = request.getParameter("accountid");
+            amount = Double.parseDouble(request.getParameter("amount"));
             Account acc = new Account();
             acc.setAccountid(accountid);
-            System.out.println(acc.getAccountid());
-            AccountServiceImpl aServ = new AccountServiceImpl();
             try {
-                Boolean b = aServ.saveMoney(acc, amount);
+                boolean b = aServ.saveMoney(acc, amount);
                 if (b)
                     response.sendRedirect(path + "/index.jsp");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 out.println("服务器出现异常");
             }
         } else if ("draw".equalsIgnoreCase(action)) {
             System.out.println("进入取钱");
-            String accountid = request.getParameter("accountid");
-            double amount = Double.parseDouble(request.getParameter("amount"));
+            accountid = request.getParameter("accountid");
+            amount = Double.parseDouble(request.getParameter("amount"));
             Account acc = new Account();
             acc.setAccountid(accountid);
-            System.out.println(acc.getAccountid());
-            AccountServiceImpl aServ = new AccountServiceImpl();
             try {
-                Boolean b = aServ.drawMoney(acc, amount);
+                boolean b = aServ.drawMoney(acc, amount);
                 if (b)
                     response.sendRedirect(path + "/index.jsp");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
-                if (e.getMessage() == "250") {
+                if ("250".equalsIgnoreCase(e.getMessage())) {
                     request.setAttribute("err", "250");
-                    RequestDispatcher disp = request.getRequestDispatcher("/draw.jsp");
-                    disp.forward(request, response);
+                    try {
+                        dispForward(request, response,"/draw.jsp");
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                        out.println("服务器出现异常");
+                    }
                 } else {
                     out.println("服务器出现异常");
                 }
             }
         } else if ("transger".equalsIgnoreCase(action)) {
             System.out.println("首先查询是否存在用户");
-            String accountid = request.getParameter("accountid");
-            String accountid2 = request.getParameter("accountid2");
-            double amount = Double.parseDouble(request.getParameter("amount"));
-            AccountServiceImpl aServ = new AccountServiceImpl();
+            accountid = request.getParameter("accountid");
+            accountid2 = request.getParameter("accountid2");
+            amount = Double.parseDouble(request.getParameter("amount"));
             try {
                 Account acc2 = aServ.findAccunt(accountid2);
                 if (acc2 == null) {
                     request.setAttribute("err", "111");
-                    RequestDispatcher disp = request.getRequestDispatcher("/transger.jsp");
-                    disp.forward(request, response);
+                    url = "/transger.jsp";
                 } else if (acc2.getAccountid().equals(accountid)) {
                     request.setAttribute("err", "112");
-                    RequestDispatcher disp = request.getRequestDispatcher("/transger.jsp");
-                    disp.forward(request, response);
+                    url = "/transger.jsp";
                 } else {
                     request.setAttribute("account2", acc2);
                     request.setAttribute("amount", amount);
-                    RequestDispatcher disp = request.getRequestDispatcher("/transger1.jsp");
-                    disp.forward(request, response);
+                    url = "/transger1.jsp";
                 }
+                dispForward(request, response,url);
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 out.println("服务器出现异常");
             }
         } else if ("transger1".equalsIgnoreCase(action)) {
             System.out.println("开始转账");
-            String accountid = request.getParameter("accountid"); //自身id
-            String accountid2 = request.getParameter("accountid2"); //对方Id
-            double amount = Double.parseDouble(request.getParameter("amount")); //转账金额
-            AccountServiceImpl aServ = new AccountServiceImpl();
+            accountid = request.getParameter("accountid"); //自身id
+            accountid2 = request.getParameter("accountid2"); //对方Id
+            amount = Double.parseDouble(request.getParameter("amount")); //转账金额
             Account acc = new Account();
             acc.setAccountid(accountid);
             Account acc2 = new Account();
@@ -149,12 +143,14 @@ public class CoreServlet extends HttpServlet {
                     response.sendRedirect(path + "/index.jsp");
                 }
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 if (e.getMessage() == "250") {
                     request.setAttribute("err", "250");
-                    RequestDispatcher disp = request.getRequestDispatcher("/transger.jsp");
-                    disp.forward(request, response);
+                    try {
+                        dispForward(request, response,"/transger.jsp");
+                    } catch (Exception e1) {
+                        out.println("服务器出现异常");
+                    }
                 } else {
                     out.println("服务器出现异常");
                 }
@@ -163,14 +159,12 @@ public class CoreServlet extends HttpServlet {
             System.out.println("开始查询余额");
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("account");
-            String accountid = acc.getAccountid();
-            AccountServiceImpl aServ = new AccountServiceImpl();
+            accountid = acc.getAccountid();
             try {
                 acc = aServ.findAccunt(accountid);
                 session.setAttribute("account", acc);
                 response.sendRedirect(path + "/queryRemainder.jsp");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 out.println("服务器出现异常");
             }
@@ -178,15 +172,12 @@ public class CoreServlet extends HttpServlet {
             System.out.print("开始查询明细");
             HttpSession session = request.getSession();
             Account acc = (Account) session.getAttribute("account");
-            AccountServiceImpl aServ = new AccountServiceImpl();
             try {
                 ArrayList<AccountDetailDTO> al = aServ.queryTransactionDail(acc);
                 System.out.println(al.size());
                 request.setAttribute("arraylist", al);
-                RequestDispatcher disp = request.getRequestDispatcher("/detail.jsp");
-                disp.forward(request, response);
+                dispForward(request, response,"/detail.jsp");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 out.println("服务器出现异常");
             }
@@ -196,18 +187,20 @@ public class CoreServlet extends HttpServlet {
             Account acc = (Account) session.getAttribute("account");
             String pwd = request.getParameter("pwd");
             String newPwd = request.getParameter("newPwd");
-            AccountServiceImpl aServ = new AccountServiceImpl();
             try {
                 boolean b = aServ.updatePwd(acc, pwd, newPwd);
                 if (b)
                     response.sendRedirect(path + "/index.jsp");
             } catch (Exception e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
                 if (e.getMessage() == "260") {
                     request.setAttribute("err", "260");
-                    RequestDispatcher disp = request.getRequestDispatcher("/changePassword1.jsp");
-                    disp.forward(request, response);
+                    try {
+                        dispForward(request, response,"/changePassword1.jsp");
+                    } catch (Exception e1) {
+                        e1.printStackTrace();
+                        out.println("服务器出现异常");
+                    }
                 } else {
                     out.println("服务器出现异常");
                 }
@@ -221,6 +214,18 @@ public class CoreServlet extends HttpServlet {
         }
     }
 
+    /**
+     *
+     * 转发url
+     * @param request
+     * @param response
+     * @param url
+     * @throws Exception
+     */
+    public static void dispForward(HttpServletRequest request, HttpServletResponse response,String url) throws Exception {
+        RequestDispatcher disp = request.getRequestDispatcher(url);
+        disp.forward(request, response);
+    }
 
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -228,7 +233,6 @@ public class CoreServlet extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
         doGet(request, response);
     }
 

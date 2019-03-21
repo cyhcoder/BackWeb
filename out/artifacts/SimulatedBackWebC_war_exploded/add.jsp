@@ -51,6 +51,7 @@
                 $(this).css({"color":"black"});
                 $('#p1').css({"display":"none"});
                 $('#p2').css({"display":"none"});
+                $('#p3').css({"display":"none"});
                 b1 = true;
             });
         })

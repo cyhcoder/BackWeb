@@ -29,20 +29,22 @@
     <script type="text/javascript" src="<%=path%>/js/jquery-3.3.1.js"></script>
     <script>
         let b1 = true;
-        if (<%=acc.getAccountid()%> == null){
+        if (<%=acc.getAccountid()%> == null
+        )
+        {
             alert("当前登录已失效，请重新登录！");
             window.location.href = "login.jsp";
         }
 
         function frmSubmit(url) {
             let t1 = $('#text1');
-            if(t1.val()!==""){
-                if(b1){
+            if (t1.val() !== "") {
+                if (b1) {
                     document.frm.action = url;// product.do?action=query
                     document.frm.submit();
                 }
-            }else{
-                $('#err1').css({"display":"block"});
+            } else {
+                $('#err1').css({"display": "block"});
             }
         }
 
@@ -50,30 +52,32 @@
             for (let i = 0; i < document.getElementsByClassName('b1').length; i++) {
                 document.getElementsByClassName('b1')[i].onclick = function () {
                     document.getElementById('text1').value = this.value;
+                    resets();
                 }
             }
-            if (<%=err %>=='250'){
+            if ('250' ==<%=err %>) {
                 x = document.getElementById("err");
                 x.style.display = "block";
             }
             let t1 = $('#text1');
-            t1.on('blur',function (){
-                if($(this).val()%100!==0||$(this).val()==0){
-                    $(this).css({"color":"red"});
-                    $('#err1').css({"display":"block"});
+            t1.on('blur', function () {
+                if ($(this).val() % 100 !== 0 || $(this).val() == 0) {
+                    $(this).css({"color": "red"});
+                    $('#err1').css({"display": "block"});
                     b1 = false;
-                }else if($(this).val()>5000){
-                    $(this).css({"color":"red"});
-                    $('#err2').css({"display":"block"});
+                } else if ($(this).val() > 5000) {
+                    $(this).css({"color": "red"});
+                    $('#err2').css({"display": "block"});
                     b1 = false;
                 }
             });
-            t1.on("focus",function () {
-                $(this).css({"color":"black"});
-                $('#err1').css({"display":"none"});
-                $('#err2').css({"display":"none"});
+            function resets(){
+                t1.css({"color": "black"});
+                $('#err1').css({"display": "none"});
+                $('#err2').css({"display": "none"});
                 b1 = true;
-            });
+            }
+            t1.on("focus", resets);
         }
     </script>
     <title>取款</title>

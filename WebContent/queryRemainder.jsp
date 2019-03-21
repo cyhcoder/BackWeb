@@ -26,9 +26,7 @@
     <link rel="stylesheet" type="text/css" href="<%=path%>/css/styles.css">
     <script type="text/javascript" src="<%=path%>/js/js.js"></script>
     <script type="text/javascript">
-        if (<%=acc.getAccountid()%> == null
-        )
-        {
+        if (null ==<%=acc.getAccountid()%>) {
             alert("当前登录已失效，请重新登录！")
             window.location.href = "login.jsp";
         }
@@ -45,7 +43,7 @@
     <br/>
     <input type="button" name="" value="隐藏" class="not_display">
     <br/>
-    <input type="button" name="" value="退卡" style="color:red;">
+    <input type="button" name="" value="退卡" style="color:red;" onclick="changeFrame('<%=path%>/core.do?action=exit');">
 </div>
 <div id="center_frame">
     <div id="input_amount">请选择所需服务</div>

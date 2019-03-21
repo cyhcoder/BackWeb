@@ -35,7 +35,7 @@
         }
         const err1 = "260";
         $(function () {
-            if (<%=err %>==err1){
+            if (err1==<%=err %>){
                 x = document.getElementById("err");
                 x.style.display = "block";
             }
