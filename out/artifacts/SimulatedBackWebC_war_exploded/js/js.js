@@ -1,10 +1,11 @@
 function firm() {
-	if (confirm("请登录！")) {
-		window.location.href = "login.jsp";
-	}
+    if (confirm("请登录！")) {
+        window.location.href = "login.jsp";
+    }
 }
+
 function changeFrame(dir) {
-	window.location.href = dir;
+    window.location.href = dir;
 }
 
 // function frmSubmit(){

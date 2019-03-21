@@ -8,7 +8,6 @@
         </element>
         <element id="directory" name="lib">
           <element id="library" level="module" name="ojdbc6.jar" module-name="SimulatedBackWebC" />
-          <element id="library" level="project" name="servlet-api" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="SimulatedBackWebC/web/Web" />
