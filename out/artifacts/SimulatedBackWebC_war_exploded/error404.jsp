@@ -17,9 +17,20 @@
     <link rel="stylesheet" type="text/css"
           href="<%=path%>/css/styles.css">
     <script type="text/javascript" src="<%=path%>/js/js.js"></script>
-    <title>Insert title here</title>
+    <title>页面丢失<</title>
 </head>
 <body>
-
+<p id="choose_title">404 Page not found</p>
+<div id="left_frame">
+    <br/> <input type="button" name="" value="隐藏" class="not_display">
+</div>
+<div id="center_frame" style="">
+    <div id="input_amount"><p >不小心页面丢失啦~</p></div>
+</div>
+<div id="right_frame">
+    <br/> <input type="button" name="" value="隐藏" class="not_display">
+    <br/> <input type="button" name="" value="隐藏" class="not_display">
+    <br/> <input type="button" name="" value="返回主菜单" onclick="changeFrame('<%=path%>/index.jsp');">
+</div>
 </body>
 </html>

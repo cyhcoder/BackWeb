@@ -103,6 +103,7 @@ public class CoreServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
                 if ("250".equalsIgnoreCase(e.getMessage())) {
+                    System.out.println("250");
                     request.setAttribute("err", e.getMessage());
                     try {
                         dispForward(request, response,"/draw.jsp");

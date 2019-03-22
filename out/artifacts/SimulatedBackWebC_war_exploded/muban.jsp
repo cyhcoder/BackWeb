@@ -15,8 +15,8 @@
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
     <link rel="stylesheet" type="text/css"
-          href="<%=path%>/view/css/styles.css">
-    <script type="text/javascript" src="<%=path%>/view/js/js.js"></script>
+          href="<%=path%>/css/styles.css">
+    <script type="text/javascript" src="<%=path%>/js/js.js"></script>
     <title>Insert title here</title>
 </head>
 <body>

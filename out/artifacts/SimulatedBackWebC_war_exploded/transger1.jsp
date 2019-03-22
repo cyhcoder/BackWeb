@@ -6,13 +6,13 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
             + path + "/";
-    String err = (String) request.getAttribute("err");
 %>
 <%
-    AccountDetailDTO aDTO = (AccountDetailDTO)request.getAttribute("aDTO");
+    AccountDetailDTO aDTO = (AccountDetailDTO)request.getAttribute("accountDTO");
     if (aDTO == null) {
         aDTO = new AccountDetailDTO();
     }
+    System.out.println(aDTO.getAccountid());
 %>
 <!DOCTYPE html>
 <html>

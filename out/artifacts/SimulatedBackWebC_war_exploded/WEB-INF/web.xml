@@ -10,7 +10,7 @@
 
     <error-page>
         <error-code>404</error-code>
-        <location>/error404.html</location>
+        <location>/error404.jsp</location>
     </error-page>
     <session-config>
         <session-timeout>60</session-timeout>
