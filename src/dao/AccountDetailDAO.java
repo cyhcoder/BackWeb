@@ -25,7 +25,7 @@ public class AccountDetailDAO {
      */
     public int addAccountDetail(AccountDetail ad) throws Exception {
         Connection conn = tran.getConnection();
-        String sql = "insert into accountdetail(accountid,accountid2,type,amount,balance,id) values(?,?,?,?,?,ACCOUNTDETAILID1.nextval)";
+        String sql = "insert into accozuntdetail(accountid,accountid2,type,amount,balance,id) values(?,?,?,?,?,ACCOUNTDETAILID1.nextval)";
         PreparedStatement pst = conn.prepareStatement(sql);
         pst.setString(1, ad.getAccountid());
         pst.setString(2, ad.getAccountid2());

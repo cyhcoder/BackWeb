@@ -9,12 +9,9 @@
     String err = (String) request.getAttribute("err");
 %>
 <%
-    HttpSession s = request.getSession();
-    Account acc = (Account) s.getAttribute("account");
-    Account acc2 = (Account) request.getAttribute("account2");
-    double amount = (Double) request.getAttribute("amount");
-    if (acc == null) {
-        acc = new Account();
+    AccountDetailDTO aDTO = (AccountDetailDTO)request.getAttribute("aDTO");
+    if (aDTO == null) {
+        aDTO = new AccountDetailDTO();
     }
 %>
 <!DOCTYPE html>
@@ -30,9 +27,7 @@
           href="<%=path%>/css/styles.css">
     <script type="text/javascript" src="<%=path%>/js/js.js"></script>
     <script>
-        if (<%=acc.getAccountid()%> == null
-        )
-        {
+        if (null== <%=aDTO.getAccountid()%>) {
             alert("当前登录已失效，请重新登录！")
             window.location.href = "login.jsp";
         }
@@ -62,21 +57,21 @@
         <table border="0" align="center" id="view_amount">
             <tr>
                 <td>对方卡号:</td>
-                <td><%=acc2.getAccountid() %>
+                <td><%=aDTO.getAccountid2() %>
                 </td>
-                <input type="hidden" name="accountid" value="<%=acc.getAccountid() %>">
-                <input type="hidden" name="accountid2" value="<%=acc2.getAccountid() %>">
+                <input type="hidden" name="accountid" value="<%=aDTO.getAccountid() %>">
+                <input type="hidden" name="accountid2" value="<%=aDTO.getAccountid2() %>">
             </tr>
             <tr>
                 <td>对方户名:</td>
-                <td><%=acc2.getName() %>
+                <td><%=aDTO.getName2() %>
                 </td>
             </tr>
             <tr>
                 <td>转账金额:</td>
-                <td><%=amount %>
+                <td><%=aDTO.getAmount() %>
                 </td>
-                <input type="hidden" name="amount" value="<%=amount %>">
+                <input type="hidden" name="amount" value="<%=aDTO.getAmount() %>">
             </tr>
         </table>
     </div>

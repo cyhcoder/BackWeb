@@ -28,6 +28,12 @@
           href="<%=path%>/css/styles.css">
     <script type="text/javascript" src="<%=path%>/js/js.js"></script>
     <script type="text/javascript" src="<%=path%>/js/jquery-3.3.1.js"></script>
+    <script>
+        if (null ===<%=acc.getAccountid()%>) {
+            alert("当前登录已失效，请重新登录！");
+            window.location.href = "login.jsp";
+        }
+    </script>
     <title>转账1</title>
 </head>
 <body>
@@ -103,15 +109,18 @@
 </body>
 <script>
     let b1 = true;
+    //错误语句
     const err1 = "不存在该用户。";
     const err2 = "转账对象不能是自己。";
     const err3 = "当前余额不足。";
     const err4 = "输入金额不能为0或大于5000。";
 
-    if (null ===<%=acc.getAccountid()%>) {
-        alert("当前登录已失效，请重新登录！");
-        window.location.href = "login.jsp";
-    }
+    let errJson ={
+        '111':err1,
+        '112':err2,
+        '250':err3
+    };
+
     let err = $('#err5');
 
     function frmSubmit(url) {
@@ -122,8 +131,6 @@
                 document.frm.submit();
             }
         } else {
-            console.log(err4);
-            console.log(err);
             displayErr(err4);
         }
     }
@@ -131,18 +138,10 @@
         err.text(code);
         err.css({"display": "block"});
     }
-    //错误代码
-    const errcode1 = '111';
-    const errcode2 = '112';
-    const errcode3 = '250';
-    if (errcode1 ==<%=err %>) {
-        displayErr(err1);
-    }
-    if (errcode2==<%=err %>){
-        displayErr(err2);
-    }
-    if (errcode3==<%=err %>) {
-        displayErr(err3);
+    for(let i in errJson){
+        if (i ==='<%=err %>') {
+            displayErr(errJson[i]);
+        }
     }
 
     function raster() {

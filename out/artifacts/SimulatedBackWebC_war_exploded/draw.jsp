@@ -29,9 +29,7 @@
     <script type="text/javascript" src="<%=path%>/js/jquery-3.3.1.js"></script>
     <script>
         let b1 = true;
-        if (<%=acc.getAccountid()%> == null
-        )
-        {
+        if (null==<%=acc.getAccountid()%>) {
             alert("当前登录已失效，请重新登录！");
             window.location.href = "login.jsp";
         }
@@ -55,8 +53,8 @@
                     resets();
                 }
             }
-            if ('250' ==<%=err %>) {
-                x = document.getElementById("err");
+            if ('250'==='<%=err %>') {
+                let x = document.getElementById("err");
                 x.style.display = "block";
             }
             let t1 = $('#text1');

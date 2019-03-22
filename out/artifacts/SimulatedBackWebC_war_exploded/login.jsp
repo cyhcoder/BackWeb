@@ -20,6 +20,7 @@
     <meta http-equiv="description" content="This is my page">
     <link rel="stylesheet" type="text/css" href="<%=path %>/css/styles.css">
     <script type="text/javascript" src="<%=path %>/js/js.js"></script>
+    <script type="text/javascript" src="<%=path%>/js/jquery-3.3.1.js"></script>
     <title>登录用户</title>
     <script type="text/javascript">
         function frmSubmit(url) {
@@ -27,12 +28,15 @@
             document.frm.submit();
         }
 
-        window.onload = function () {
-            if ('101' ==<%=err %>) {
-                x = document.getElementById("err");
-                x.style.display = "block";
+        $(function () {
+            if ('101' ==='<%=err %>') {
+                $('#err').css({"display":"block"});
             }
-        }
+            $("#input_amount").children("input").on("focus",function () {
+                console.log("focus");
+                $('#err').css({"display":"none"});
+            });
+        })
     </script>
 </head>
 <body>

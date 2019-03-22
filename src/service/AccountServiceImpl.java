@@ -14,7 +14,6 @@ public class AccountServiceImpl implements IAccountService {
      */
     @Override
     public Account createAccount(Account a) {
-        // TODO Auto-generated method stub
         TransactionContext tran = null;
         try {
             tran = new TransactionContext();
@@ -27,12 +26,10 @@ public class AccountServiceImpl implements IAccountService {
             System.out.println("创建用户成功");
             return acc;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             try {
                 tran.rollBackTran();
                 System.out.println("创建用户失败");
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             e.printStackTrace();
@@ -51,7 +48,6 @@ public class AccountServiceImpl implements IAccountService {
             acc = aDAO.findAccountByIdPwd(name, pwd);
             return acc;
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             System.out.println("这里出错");
             throw new Exception(e.getMessage());
         }
@@ -59,7 +55,6 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public boolean saveMoney(Account a, double m) throws Exception {
-        // TODO Auto-generated method stub
         String type = "save";
         // 初始流水对象
         AccountDetail ad = new AccountDetail();
@@ -85,11 +80,9 @@ public class AccountServiceImpl implements IAccountService {
                 return true;
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             try {
                 tran.rollBackTran();
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             e.printStackTrace();
@@ -100,7 +93,6 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public boolean drawMoney(Account a, double m) throws Exception {
-        // TODO Auto-generated method stub
         String type = "draw";
         // 初始流水对象
         AccountDetail ad = new AccountDetail();
@@ -130,11 +122,9 @@ public class AccountServiceImpl implements IAccountService {
                 return true;
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             try {
                 tran.rollBackTran();
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             e.printStackTrace();
@@ -146,7 +136,6 @@ public class AccountServiceImpl implements IAccountService {
     @Override
     public boolean transferMoney(Account a, Account b, double m) throws Exception {
         System.out.println("开始转账");
-        // TODO Auto-generated method stub
         String type = "transfer";
         // 初始流水对象
         AccountDetail ad = new AccountDetail();
@@ -192,11 +181,9 @@ public class AccountServiceImpl implements IAccountService {
                 return true;
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             try {
                 tran.rollBackTran();
             } catch (Exception e1) {
-                // TODO Auto-generated catch block
                 e1.printStackTrace();
             }
             throw new Exception(e.getMessage());
@@ -214,7 +201,6 @@ public class AccountServiceImpl implements IAccountService {
             AccountDAO aDAO = new AccountDAO(tran);
             acc = aDAO.findAccountByID(id);
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -224,7 +210,6 @@ public class AccountServiceImpl implements IAccountService {
 
     @Override
     public ArrayList<AccountDetailDTO> queryTransactionDail(Account a) throws Exception {
-        // TODO Auto-generated method stub
         TransactionContext tran = null;
         ArrayList<AccountDetailDTO> arrAcc = null;
         try {
@@ -233,7 +218,6 @@ public class AccountServiceImpl implements IAccountService {
             AccountDetailDAO adDAO = new AccountDetailDAO(tran);// 开始新的DAO
             arrAcc = adDAO.findAccountDetailByAccount(a);// 调用DAO提供的方法
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
             throw new Exception(e.getMessage());
         }
@@ -259,7 +243,6 @@ public class AccountServiceImpl implements IAccountService {
                 return true;
             }
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             tran.rollBackTran();
             e.printStackTrace();
             throw new Exception(e.getMessage());

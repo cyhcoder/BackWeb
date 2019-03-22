@@ -35,8 +35,8 @@
         }
         const err1 = "260";
         $(function () {
-            if (err1==<%=err %>){
-                x = document.getElementById("err");
+            if (err1==='<%=err %>'){
+                let x = document.getElementById("err");
                 x.style.display = "block";
             }
             let np = $('#newPwd');

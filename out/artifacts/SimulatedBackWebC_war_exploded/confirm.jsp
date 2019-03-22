@@ -29,16 +29,13 @@
           href="<%=path%>/css/styles.css">
     <script type="text/javascript" src="<%=path%>/js/js.js"></script>
     <script>
-        if (<%=acc.getAccountid()%> == null
-        )
-        {
+        if (null== <%=acc.getAccountid()%>) {
             if (alert("当前登录已失效，请重新登录！")) {
                 window.location.href = "login.jsp";
             }
         }
 
         function frmSubmit(url) {
-            console.log("nono");
             document.frm.action = url;
             // product.do?action=query
             document.frm.submit();

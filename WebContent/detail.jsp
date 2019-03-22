@@ -27,7 +27,7 @@
           href="<%=path%>/css/styles.css">
     <script type="text/javascript" src="<%=path%>/js/js.js"></script>
     <script>
-        if (<%=al.size()%>==0){
+        if (0===<%=al.size()%>){
             alert("当前登录已失效，请重新登录！")
             window.location.href = "login.jsp";
         }
